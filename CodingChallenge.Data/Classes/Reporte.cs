@@ -55,7 +55,7 @@ namespace CodingChallenge.Data.Classes
                 Perimetro = o.Sum(f => f.CalcularPerimetro())
             }).ToList();
 
-            cuentas.Select(c => ObtenerLinea(c.Numero, c.Area, c.Perimetro, c.Tipo, idioma)).ForEach(i => sb.Append(i));
+            cuentas.Select(c => ObtenerLinea(c.Numero, c.Area, c.Perimetro, c.Tipo, idioma)).ToList().ForEach(i => sb.Append(i));
 
             var totales = new
             {
