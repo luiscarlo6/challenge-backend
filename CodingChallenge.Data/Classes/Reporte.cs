@@ -1,27 +1,16 @@
-﻿using CodingChallenge.Data.Enums;
+﻿using Castle.Core.Internal;
+using CodingChallenge.Data.Enums;
 using CodingChallenge.Data.Interfaces;
-using Microsoft.SqlServer.Server;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace CodingChallenge.Data.Classes 
+namespace CodingChallenge.Data.Classes
 {
     public class Reporte
     {
         public List<IFormaGeometrica> Formas = new List<IFormaGeometrica>();
         public int Idioma = 1;
-
-        #region Formas
-
-        public const int Cuadrado = 1;
-        public const int TrianguloEquilatero = 2;
-        public const int Circulo = 3;
-        public const int Trapecio = 4;
-
-        #endregion
 
         #region Idiomas
 
@@ -41,70 +30,51 @@ namespace CodingChallenge.Data.Classes
 
             if (!formas.Any())
             {
+                //No Hay formas
                 if (idioma == Castellano)
                     sb.Append("<h1>Lista vacía de formas!</h1>");
                 else
                     sb.Append("<h1>Empty list of shapes!</h1>");
+
+                return sb.ToString();
             }
+            
+            // HEADER
+            if (idioma == Castellano)
+                sb.Append("<h1>Reporte de Formas</h1>");
             else
+                // default es inglés
+                sb.Append("<h1>Shapes report</h1>");
+
+               
+            var cuentas = formas.GroupBy(f => f.Tipo).Select(o => new
             {
-                // Hay por lo menos una forma
-                // HEADER
-                if (idioma == Castellano)
-                    sb.Append("<h1>Reporte de Formas</h1>");
-                else
-                    // default es inglés
-                    sb.Append("<h1>Shapes report</h1>");
+                Tipo =  o.Key,
+                Numero = o.Count(),
+                Area= o.Sum(f => f.CalcularArea()),
+                Perimetro = o.Sum(f => f.CalcularPerimetro())
+            }).ToList();
 
-                var numeroCuadrados = 0;
-                var numeroCirculos = 0;
-                var numeroTriangulos = 0;
+            cuentas.Select(c => ObtenerLinea(c.Numero, c.Area, c.Perimetro, c.Tipo, idioma)).ForEach(i => sb.Append(i));
 
-                var areaCuadrados = 0m;
-                var areaCirculos = 0m;
-                var areaTriangulos = 0m;
+            var totales = new
+            {
+                Numero = cuentas.Sum(f => f.Numero),
+                Area = cuentas.Sum(f => f.Area),
+                Perimetro = cuentas.Sum(f => f.Perimetro),
+            };
 
-                var perimetroCuadrados = 0m;
-                var perimetroCirculos = 0m;
-                var perimetroTriangulos = 0m;
 
-                for (var i = 0; i < formas.Count; i++)
-                {
-                    if (formas[i].Tipo == Forma.Cuadrado)
-                        {
-                        numeroCuadrados++;
-                        areaCuadrados += formas[i].CalcularArea();
-                        perimetroCuadrados += formas[i].CalcularPerimetro();
-                    }
-                    if (formas[i].Tipo == Forma.Circulo)
-                    {
-                        numeroCirculos++;
-                        areaCirculos += formas[i].CalcularArea();
-                        perimetroCirculos += formas[i].CalcularPerimetro();
-                    }
-                    if (formas[i].Tipo == Forma.TrianguloEquilatero)
-                    {
-                        numeroTriangulos++;
-                        areaTriangulos += formas[i].CalcularArea();
-                        perimetroTriangulos += formas[i].CalcularPerimetro();
-                    }
-                }
-
-                sb.Append(ObtenerLinea(numeroCuadrados, areaCuadrados, perimetroCuadrados, Cuadrado, idioma));
-                sb.Append(ObtenerLinea(numeroCirculos, areaCirculos, perimetroCirculos, Circulo, idioma));
-                sb.Append(ObtenerLinea(numeroTriangulos, areaTriangulos, perimetroTriangulos, TrianguloEquilatero, idioma));
-
-                // FOOTER
-                sb.Append("TOTAL:<br/>");
-                sb.Append(numeroCuadrados + numeroCirculos + numeroTriangulos + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
-                sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + (perimetroCuadrados + perimetroTriangulos + perimetroCirculos).ToString("#.##") + " ");
-                sb.Append("Area " + (areaCuadrados + areaCirculos + areaTriangulos).ToString("#.##"));
-            }
-
+            // FOOTER
+            sb.Append("TOTAL:<br/>");
+            sb.Append(totales.Numero + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
+            sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + (totales.Perimetro).ToString("#.##") + " ");
+            sb.Append("Area " + (totales.Area).ToString("#.##"));
+            
             return sb.ToString();
         }
 
-        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, int tipo, int idioma)
+        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, Forma tipo, int idioma)
         {
             if (cantidad > 0)
             {
@@ -118,17 +88,17 @@ namespace CodingChallenge.Data.Classes
         }
 
 
-        private static string TraducirForma(int tipo, int cantidad, int idioma)
+        private static string TraducirForma(Forma tipo, int cantidad, int idioma)
         {
             switch (tipo)
             {
-                case Cuadrado:
+                case Forma.Cuadrado:
                     if (idioma == Castellano) return cantidad == 1 ? "Cuadrado" : "Cuadrados";
                     else return cantidad == 1 ? "Square" : "Squares";
-                case Circulo:
+                case Forma.Circulo:
                     if (idioma == Castellano) return cantidad == 1 ? "Círculo" : "Círculos";
                     else return cantidad == 1 ? "Circle" : "Circles";
-                case TrianguloEquilatero:
+                case Forma.TrianguloEquilatero:
                     if (idioma == Castellano) return cantidad == 1 ? "Triángulo" : "Triángulos";
                     else return cantidad == 1 ? "Triangle" : "Triangles";
             }

@@ -5,7 +5,13 @@ using System.Text;
 
 var formas = new List<IFormaGeometrica>
             {
-
+                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 5),
+                FormaGeometrica.getFormaGeometrica(Forma.Circulo, 3),
+                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 4),
+                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 2),
+                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 9),
+                FormaGeometrica.getFormaGeometrica(Forma.Circulo, 2.75m),
+                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 4.2m)
             };
 bool exit = false;
 while (!exit)
