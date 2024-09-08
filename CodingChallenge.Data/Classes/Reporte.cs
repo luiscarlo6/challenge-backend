@@ -5,105 +5,61 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+//Reescribir con Strategy y factory method y singleton
 namespace CodingChallenge.Data.Classes
 {
     public class Reporte
     {
-        public List<IFormaGeometrica> Formas = new List<IFormaGeometrica>();
-        public int Idioma = 1;
-
         #region Idiomas
-
-        public const int Castellano = 1;
-        public const int Ingles = 2;
+        private static ITraductor _traductorCastellano;
+        private static ITraductor _traductorIngles;
 
         #endregion
 
-        public Reporte(List<IFormaGeometrica> formas, int idioma ) {
-            Formas = formas;
-            Idioma = idioma;
+
+        private static ITraductor ObtenerTraductor(Idioma idioma)
+        {
+            return idioma switch
+            {
+                Idioma.Castellano => _traductorCastellano ??= new TraductorCastellano(),
+                Idioma.Ingles => _traductorIngles ??= new TraductorIngles(),
+                _ => _traductorIngles ??= new TraductorIngles()
+            };
         }
 
-        public static string Imprimir(List<IFormaGeometrica> formas, int idioma)
+        public static string Imprimir(List<IFormaGeometrica> formas, Idioma idioma)
         {
+            var traductor = ObtenerTraductor(idioma);
             var sb = new StringBuilder();
 
-            if (!formas.Any())
+            if (formas.Count == 0)
             {
-                //No Hay formas
-                if (idioma == Castellano)
-                    sb.Append("<h1>Lista vacía de formas!</h1>");
-                else
-                    sb.Append("<h1>Empty list of shapes!</h1>");
-
+                sb.Append(traductor.ListaVacia());
                 return sb.ToString();
             }
-            
-            // HEADER
-            if (idioma == Castellano)
-                sb.Append("<h1>Reporte de Formas</h1>");
-            else
-                // default es inglés
-                sb.Append("<h1>Shapes report</h1>");
 
+            sb.Append(traductor.Header());
                
             var cuentas = formas.GroupBy(f => f.Tipo).Select(o => new
             {
                 Tipo =  o.Key,
-                Numero = o.Count(),
+                Cantidad = o.Count(),
                 Area= o.Sum(f => f.CalcularArea()),
                 Perimetro = o.Sum(f => f.CalcularPerimetro())
             }).ToList();
 
-            cuentas.Select(c => ObtenerLinea(c.Numero, c.Area, c.Perimetro, c.Tipo, idioma)).ToList().ForEach(i => sb.Append(i));
+            cuentas.Select(c => c.Cantidad > 0 ? traductor.ObtenerLinea(c.Cantidad, c.Area, c.Perimetro, c.Tipo): string.Empty).ToList().ForEach(i => sb.Append(i));
 
             var totales = new
             {
-                Numero = cuentas.Sum(f => f.Numero),
+                Cantidad = cuentas.Sum(f => f.Cantidad),
                 Area = cuentas.Sum(f => f.Area),
                 Perimetro = cuentas.Sum(f => f.Perimetro),
             };
 
-
-            // FOOTER
-            sb.Append("TOTAL:<br/>");
-            sb.Append(totales.Numero + " " + (idioma == Castellano ? "formas" : "shapes") + " ");
-            sb.Append((idioma == Castellano ? "Perimetro " : "Perimeter ") + (totales.Perimetro).ToString("#.##") + " ");
-            sb.Append("Area " + (totales.Area).ToString("#.##"));
-            
+            sb.Append(traductor.Footer(totales));
             return sb.ToString();
-        }
-
-        private static string ObtenerLinea(int cantidad, decimal area, decimal perimetro, Forma tipo, int idioma)
-        {
-            if (cantidad > 0)
-            {
-                if (idioma == Castellano)
-                    return $"{cantidad} {TraducirForma(tipo, cantidad, idioma)} | Area {area:#.##} | Perimetro {perimetro:#.##} <br/>";
-
-                return $"{cantidad} {TraducirForma(tipo, cantidad, idioma)} | Area {area:#.##} | Perimeter {perimetro:#.##} <br/>";
-            }
-
-            return string.Empty;
-        }
-
-
-        private static string TraducirForma(Forma tipo, int cantidad, int idioma)
-        {
-            switch (tipo)
-            {
-                case Forma.Cuadrado:
-                    if (idioma == Castellano) return cantidad == 1 ? "Cuadrado" : "Cuadrados";
-                    else return cantidad == 1 ? "Square" : "Squares";
-                case Forma.Circulo:
-                    if (idioma == Castellano) return cantidad == 1 ? "Círculo" : "Círculos";
-                    else return cantidad == 1 ? "Circle" : "Circles";
-                case Forma.TrianguloEquilatero:
-                    if (idioma == Castellano) return cantidad == 1 ? "Triángulo" : "Triángulos";
-                    else return cantidad == 1 ? "Triangle" : "Triangles";
-            }
-
-            return string.Empty;
         }
     }
 }

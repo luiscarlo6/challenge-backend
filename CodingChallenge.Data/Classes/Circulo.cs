@@ -4,14 +4,9 @@ using System;
 
 namespace CodingChallenge.Data.Classes
 {
-    public class Circulo : IFormaGeometrica
+    public class Circulo(decimal diametro) : IFormaGeometrica
     {
-        private readonly decimal _diametro;
-
-        public Circulo(decimal diametro)
-        {
-            _diametro = diametro;
-        }
+        private readonly decimal _diametro = diametro;
 
         public Forma Tipo => Forma.Circulo;
 

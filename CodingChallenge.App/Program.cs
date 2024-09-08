@@ -64,7 +64,7 @@ while (!exit)
             Console.ReadLine();
             break;
         case "2":
-            var sb = Reporte.Imprimir(formas, 1);
+            var sb = Reporte.Imprimir(formas, Idioma.Castellano);
             Console.WriteLine(sb.ToString());
             Console.WriteLine("Presione enter para volver");
             Console.ReadLine();
