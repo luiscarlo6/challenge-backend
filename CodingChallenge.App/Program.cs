@@ -5,12 +5,6 @@ using System.Text;
 
 var formas = new List<IFormaGeometrica>
             {
-                FormaGeometrica.GetFormaGeometrica(TipoForma.Rectangulo, 5, 3),
-                FormaGeometrica.GetFormaGeometrica(TipoForma.Rectangulo, 10, 4),
-                FormaGeometrica.GetFormaGeometrica(TipoForma.Rectangulo, 7, 2),
-                FormaGeometrica.GetFormaGeometrica(TipoForma.Trapecio, 8, 5, 4, 6, 7),
-                FormaGeometrica.GetFormaGeometrica(TipoForma.Trapecio, 12,7,5,9,10),
-                FormaGeometrica.GetFormaGeometrica(TipoForma.Trapecio, 15,6,8,10,11),
             };
 bool exit = false;
 while (!exit)
@@ -42,7 +36,6 @@ while (!exit)
                 "1" => TipoForma.Circulo,
                 "2" => TipoForma.Cuadrado,
                 "3" => TipoForma.TrianguloEquilatero,
-                "4" => TipoForma.Trapecio,
                 "5" => TipoForma.Rectangulo,
                 _ => null,
             };
