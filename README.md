@@ -34,7 +34,7 @@ Utilizar patrones de diseño, principios SOLID y funciones modernas de .NET para
 
 - Para la impresión se crea una nueva clase reporte en la cual se refactoriza la lógica de la impresion para usar LinQ donde sea posible.
 - Se hace uso de los siguientes patrones de diseño para refactorizar la impresion en la clase **Reporte**
-  1. **Strategy**: para la creación de distintos traductores a través de la interfaz IReporte.
+  1. **Strategy**: para la creación de distintos traductores a través de la inutlizandoterfaz IReporte.
   2. **Factory Method** y **Singleton**: para la utilización de un método que cree los traductores a ser utilizados según el idioma y singletón para garantizar que se van a crear una única vez.
 
 Completada la refactorización se agregaron dos nuevas funcionalidades:
@@ -58,3 +58,10 @@ Se deben exponer los métodos **CalcularPerimetro** y **CalcularArea** en un end
 En el repositorio está la .sln como una librería con las nuevas clases implementadas, el proyecto con los test unitarios mofidicados según las nuevas especificaciones y una Console App de prueba donde se pueden agregar elementos a una lista para imprimir en cualquiera de los tres idiomas.
 
 Para usar la console App se debe setear como startup project desde Visual Studio.
+
+### Posibles Mejoras
+Por razones de tiempo, hay mejoras que pudieran hacer para mejorar esta báse de código, enter ellas:
+- Implementar la API pública.
+- Desarrollar Tests de pruebas para los idiomas y formas geometricas nuevas y que además tomen en cuenta el sistema de tipos.
+- Integrar las traducciones de manera nativa con la [Globalización y localización en ASP.NET Core](https://learn.microsoft.com/es-mx/aspnet/core/fundamentals/localization?view=aspnetcore-8.0)
+  
