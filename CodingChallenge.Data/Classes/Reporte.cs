@@ -11,6 +11,7 @@ namespace CodingChallenge.Data.Classes
     {
         private static ITraductor _traductorCastellano;
         private static ITraductor _traductorIngles;
+        private static ITraductor _traductorPortugues;
 
         private static ITraductor ObtenerTraductor(Idioma idioma)
         {
@@ -18,6 +19,7 @@ namespace CodingChallenge.Data.Classes
             {
                 Idioma.Castellano => _traductorCastellano ??= new TraductorCastellano(),
                 Idioma.Ingles => _traductorIngles ??= new TraductorIngles(),
+                Idioma.Portugues => _traductorPortugues ??= new TraductorPortugues(),
                 _ => _traductorIngles ??= new TraductorIngles()
             };
         }

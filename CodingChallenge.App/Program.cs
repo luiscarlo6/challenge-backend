@@ -20,7 +20,8 @@ while (!exit)
     Console.WriteLine("1) Add Element to List");
     Console.WriteLine("2) Print List ES");
     Console.WriteLine("3) Print List EN");
-    Console.WriteLine("4) Exit");
+    Console.WriteLine("4) Print List PR");
+    Console.WriteLine("5) Exit");
     Console.WriteLine("Por favor elija una opción");
     var input = Console.ReadLine();
 
@@ -31,6 +32,8 @@ while (!exit)
             Console.WriteLine("1) Circulo");
             Console.WriteLine("2) Cuadrado");
             Console.WriteLine("3) Triangulo Equilatero");
+            Console.WriteLine("4) Trapecio");
+            Console.WriteLine("5) Rectangulo");
             Console.Write("Choose an option: ");
             string? formaElegida = Console.ReadLine();
 
@@ -39,6 +42,8 @@ while (!exit)
                 "1" => TipoForma.Circulo,
                 "2" => TipoForma.Cuadrado,
                 "3" => TipoForma.TrianguloEquilatero,
+                "4" => TipoForma.Trapecio,
+                "5" => TipoForma.Rectangulo,
                 _ => null,
             };
 
@@ -74,7 +79,12 @@ while (!exit)
             Console.ReadLine();
             break;
         case "4":
-            exit = true;
+            Console.WriteLine(Reporte.Imprimir(formas, Idioma.Portugues));
+            Console.WriteLine("Presione enter para volver");
+            Console.ReadLine();
+            break;
+        case "5":
+            exit= true;
             break;
         default:
             Console.WriteLine("Invalid option, please try again.");
