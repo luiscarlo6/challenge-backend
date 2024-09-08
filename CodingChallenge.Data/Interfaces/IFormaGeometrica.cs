@@ -10,7 +10,7 @@ namespace CodingChallenge.Data.Interfaces
 {
     public interface IFormaGeometrica
     {
-        Forma Tipo { get; }
+        TipoForma Tipo { get; }
         decimal CalcularArea();
         decimal CalcularPerimetro();
     }

@@ -1,6 +1,8 @@
-﻿namespace CodingChallenge.Data.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CodingChallenge.Data.Enums
 {
-    public enum Forma
+    public enum TipoForma
     {
         Cuadrado = 1,
         TrianguloEquilatero = 2,

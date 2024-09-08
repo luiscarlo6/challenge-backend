@@ -19,18 +19,35 @@ namespace CodingChallenge.Data.Classes
     public abstract class FormaGeometrica
     {
 
-        public static IFormaGeometrica getFormaGeometrica(Forma forma, decimal ancho)
+        public static IFormaGeometrica GetFormaGeometrica(TipoForma forma, decimal medida1)
         {
             switch (forma)
             {
-                case Forma.Circulo: return new Circulo(ancho);
-                case Forma.Cuadrado: return new Cuadrado(ancho);
-                case Forma.TrianguloEquilatero: return new TrianguloEquilatero(ancho);
+                case TipoForma.Circulo: return new Circulo(medida1);//Diametro
+                case TipoForma.Cuadrado: return new Cuadrado(medida1);//Lado
+                case TipoForma.TrianguloEquilatero: return new TrianguloEquilatero(medida1);//Lado
                 default:
                     throw new ArgumentOutOfRangeException(@"Forma desconocida");
             }
         }
 
-
+        public static IFormaGeometrica GetFormaGeometrica(TipoForma forma, decimal medida1, decimal medida2)
+        {
+            switch (forma)
+            {
+                case TipoForma.Rectangulo: return new Rectangulo(medida1, medida2);//Lado
+                default:
+                    throw new ArgumentOutOfRangeException(@"Forma desconocida");
+            }
+        }
+        public static IFormaGeometrica GetFormaGeometrica(TipoForma forma, decimal medida1, decimal medida2, decimal medida3, decimal medida4, decimal medida5)
+        {
+            switch (forma)
+            {
+                case TipoForma.Trapecio: return new Trapecio(medida1, medida2, medida3, medida4, medida5);//Base mayor, Base menor, Altura, Lado 1, Lado 2 
+                default:
+                    throw new ArgumentOutOfRangeException(@"Forma desconocida");
+            }
+        }
     }
 }

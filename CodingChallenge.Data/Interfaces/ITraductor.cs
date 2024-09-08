@@ -12,8 +12,8 @@ namespace CodingChallenge.Data.Interfaces
         string ListaVacia();
         string Header();
         string Footer(dynamic totales);
-        string ObtenerLinea(int cantidad, decimal area, decimal perimetro, Forma tipo);
-        string TraducirForma(Forma tipo, int cantidad);
+        string ObtenerLinea(int cantidad, decimal area, decimal perimetro, TipoForma tipo);
+        string TraducirForma(TipoForma tipo, int cantidad);
     }
 }
 

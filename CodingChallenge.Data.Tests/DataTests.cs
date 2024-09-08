@@ -30,7 +30,7 @@ namespace CodingChallenge.Data.Tests
         [TestCase]
         public void TestResumenListaConUnCuadrado()
         {
-            var cuadrados = new List<IFormaGeometrica> {FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 5)};
+            var cuadrados = new List<IFormaGeometrica> {FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 5)};
 
             var resumen = Reporte.Imprimir(cuadrados, Idioma.Castellano);
 
@@ -42,9 +42,9 @@ namespace CodingChallenge.Data.Tests
         {
             var cuadrados = new List<IFormaGeometrica>
             {
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 5),
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 1),
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 3)
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 5),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 1),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 3)
             };
 
             var resumen = Reporte.Imprimir(cuadrados, Idioma.Ingles);
@@ -57,13 +57,13 @@ namespace CodingChallenge.Data.Tests
         {
             var formas = new List<IFormaGeometrica>
             {
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 5),
-                FormaGeometrica.getFormaGeometrica(Forma.Circulo, 3),
-                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 4),
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 2),
-                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 9),
-                FormaGeometrica.getFormaGeometrica(Forma.Circulo, 2.75m),
-                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 4.2m)
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 5),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Circulo, 3),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.TrianguloEquilatero, 4),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 2),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.TrianguloEquilatero, 9),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Circulo, 2.75m),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.TrianguloEquilatero, 4.2m)
             };
 
             var resumen = Reporte.Imprimir(formas, Idioma.Ingles);
@@ -78,13 +78,13 @@ namespace CodingChallenge.Data.Tests
         {
             var formas = new List<IFormaGeometrica>
             {
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 5),
-                FormaGeometrica.getFormaGeometrica(Forma.Circulo, 3),
-                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 4),
-                FormaGeometrica.getFormaGeometrica(Forma.Cuadrado, 2),
-                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 9),
-                FormaGeometrica.getFormaGeometrica(Forma.Circulo, 2.75m),
-                FormaGeometrica.getFormaGeometrica(Forma.TrianguloEquilatero, 4.2m)
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 5),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Circulo, 3),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.TrianguloEquilatero, 4),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Cuadrado, 2),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.TrianguloEquilatero, 9),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.Circulo, 2.75m),
+                FormaGeometrica.GetFormaGeometrica(TipoForma.TrianguloEquilatero, 4.2m)
             };
 
             var resumen = Reporte.Imprimir(formas, Idioma.Castellano);

@@ -11,22 +11,26 @@ namespace CodingChallenge.Data.Classes
     internal class TraductorIngles : ITraductor
     {
 
-        public string ObtenerLinea(int cantidad, decimal area, decimal perimetro, Forma tipo)
+        public string ObtenerLinea(int cantidad, decimal area, decimal perimetro, TipoForma tipo)
         {
             return $"{cantidad} {TraducirForma(tipo, cantidad)} | Area {area:#.##} | Perimeter {perimetro:#.##} <br/>";
         }
 
 
-        public string TraducirForma(Forma tipo, int cantidad)
+        public string TraducirForma(TipoForma tipo, int cantidad)
         {
             switch (tipo)
             {
-                case Forma.Cuadrado:
+                case TipoForma.Cuadrado:
                     return cantidad == 1 ? "Square" : "Squares";
-                case Forma.Circulo:
+                case TipoForma.Circulo:
                     return cantidad == 1 ? "Circle" : "Circles";
-                case Forma.TrianguloEquilatero:
+                case TipoForma.TrianguloEquilatero:
                     return cantidad == 1 ? "Triangle" : "Triangles";
+                case TipoForma.Trapecio:
+                    return cantidad == 1 ? "Trapezoid" : "Trapezoids";
+                case TipoForma.Rectangulo:
+                    return cantidad == 1 ? "Rectangle" : "Rectangles";
                 default:
                     return string.Empty;
             }

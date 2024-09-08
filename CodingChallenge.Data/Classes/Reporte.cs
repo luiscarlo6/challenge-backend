@@ -5,18 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-
-//Reescribir con Strategy y factory method y singleton
 namespace CodingChallenge.Data.Classes
 {
     public class Reporte
     {
-        #region Idiomas
         private static ITraductor _traductorCastellano;
         private static ITraductor _traductorIngles;
-
-        #endregion
-
 
         private static ITraductor ObtenerTraductor(Idioma idioma)
         {

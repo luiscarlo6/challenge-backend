@@ -12,7 +12,7 @@ namespace CodingChallenge.Data.Classes
             _lado = lado;
         }
 
-        public Forma Tipo => Forma.Cuadrado;
+        public TipoForma Tipo => TipoForma.Cuadrado;
 
         public decimal CalcularArea() => _lado * _lado;
         public decimal CalcularPerimetro() => _lado * 4;
